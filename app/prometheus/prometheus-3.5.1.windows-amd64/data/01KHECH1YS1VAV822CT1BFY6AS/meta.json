@@ -1,0 +1,17 @@
+{
+	"ulid": "01KHECH1YS1VAV822CT1BFY6AS",
+	"minTime": 1771072369604,
+	"maxTime": 1771077600000,
+	"stats": {
+		"numSamples": 19945,
+		"numSeries": 90,
+		"numChunks": 175
+	},
+	"compaction": {
+		"level": 1,
+		"sources": [
+			"01KHECH1YS1VAV822CT1BFY6AS"
+		]
+	},
+	"version": 1
+}

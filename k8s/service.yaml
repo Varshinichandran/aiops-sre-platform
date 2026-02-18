@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: aiops-fastapi-service
+  namespace: aiops
+  labels:
+    app: aiops-fastapi
+spec:
+  selector:
+    app: aiops-fastapi
+  ports:
+    - name: http
+      protocol: TCP
+      port: 80
+      targetPort: 8000
+  type: ClusterIP

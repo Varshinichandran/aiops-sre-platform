@@ -1,0 +1,18 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: aiops-fastapi-monitor
+  namespace: aiops
+  labels:
+    release: monitoring
+spec:
+  selector:
+    matchLabels:
+      app: aiops-fastapi
+  namespaceSelector:
+    matchNames:
+      - aiops
+  endpoints:
+    - port: http
+      path: /metrics
+      interval: 15s

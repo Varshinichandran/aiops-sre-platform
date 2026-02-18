@@ -1,0 +1,38 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: aiops-alert-rules
+  namespace: monitoring
+  labels:
+    release: monitoring
+spec:
+  groups:
+  - name: aiops.rules
+    rules:
+
+    - alert: AIOPSPodDown
+      expr: kube_deployment_status_replicas_available{namespace="aiops", deployment="aiops-fastapi"} < 2
+      for: 10s
+      labels:
+        severity: critical
+      annotations:
+        summary: "AIOPS FastAPI Pod Down"
+        description: "Available replicas for aiops-fastapi deployment is less than 2."
+
+    - alert: HighCPUUsage
+      expr: sum(rate(container_cpu_usage_seconds_total{namespace="aiops"}[2m])) > 0.5
+      for: 2m
+      labels:
+        severity: warning
+      annotations:
+        summary: "High CPU usage in AIOPS"
+        description: "CPU usage is above threshold for 2 minutes."
+
+    - alert: HighMemoryUsage
+      expr: sum(container_memory_working_set_bytes{namespace="aiops"}) > 500000000
+      for: 2m
+      labels:
+        severity: warning
+      annotations:
+        summary: "High Memory usage in AIOPS"
+        description: "Memory usage is above 500MB for 2 minutes."
