@@ -1,13 +1,27 @@
 # AI-Driven AIOps SRE Platform
 
-An AI-powered Kubernetes monitoring and self-healing platform that detects CPU anomalies using machine learning and automatically remediates issues.
-
 ## Tech Stack
 - Kubernetes
 - Prometheus
 - Grafana
 - FastAPI
 - Python
-- Isolation Forest (Machine Learning)
+- Machine Learning
 
+## Architecture
 
+User Traffic
+     ↓
+FastAPI Application (Kubernetes Pod)
+     ↓
+Prometheus collects metrics
+     ↓
+AI Anomaly Detection Service
+     ↓
+ai_cpu_anomaly_score metric
+     ↓
+Grafana Dashboard
+     ↓
+Auto Remediation Script
+     ↓
+Kubernetes Self-Healing
