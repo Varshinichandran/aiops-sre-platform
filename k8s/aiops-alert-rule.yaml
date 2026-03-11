@@ -1,0 +1,38 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: fastapi-alert-rules
+  namespace: monitoring
+  labels:
+    release: monitoring
+spec:
+  groups:
+    - name: fastapi-alerts
+      rules:
+
+        - alert: FastAPIHighErrorRate
+          expr: rate(fastapi_request_count_total{status=~"5.."}[5m]) > 0.05
+          for: 2m
+          labels:
+            severity: warning
+          annotations:
+            summary: "High error rate in FastAPI"
+            description: "More than 5% requests are failing with 5xx in last 5 minutes."
+
+        - alert: FastAPILowRequests
+          expr: rate(fastapi_request_count_total[5m]) == 0
+          for: 2m
+          labels:
+            severity: critical
+          annotations:
+            summary: "No FastAPI requests"
+            description: "No requests received in last 5 minutes. Service might be down."
+
+        - alert: FastAPIHighLatency
+          expr: histogram_quantile(0.95, rate(fastapi_request_duration_seconds_bucket[5m])) > 1
+          for: 2m
+          labels:
+            severity: warning
+          annotations:
+            summary: "High latency in FastAPI"
+            description: "95th percentile request latency is above 1 second."
