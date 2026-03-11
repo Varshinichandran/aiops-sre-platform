@@ -123,3 +123,18 @@ aiops-sre-platform
 ├── auto_remediation.py
 └── README.md
 ```
+
+
+---
+
+## Project Impact
+
+This project demonstrates practical DevOps and AIOps capabilities including:
+
+- Deploying microservices on Kubernetes
+- Implementing real-time monitoring using Prometheus
+- Building Grafana dashboards for observability
+- Developing machine learning based anomaly detection
+- Exposing custom Prometheus metrics from a FastAPI service
+- Implementing automated remediation using Kubernetes rollout restart
+- Designing a self-healing cloud-native system
